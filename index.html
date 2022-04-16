@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>HOUSE PRICE PREDICTION</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1 style="text-align: center">Boostan House Price Prediction    </h1>
+
+    <div class="form">
+        <form action="/predict" method="POST">
+            <div class="row">
+                <div class="col">
+
+                    <label for="inputAddress"><b>RM</b> <i>(average number of rooms per dwelling)</i></label>
+                    <input type="number" name="RM" id="RM" class="form-control" max="100" min="0"
+                           placeholder="Enter values">
+
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="inputAddress"><b>LSTAT</b> <i>(% lower status of the population)</i></label>
+                    <input type="number" name="LSTAT" id="LSTAT" class="form-control" max="100" min="0"
+                           placeholder="Enter values">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="inputAddress"><b>DIS</b> <i>(weighted distances to five Boston employment centres)</i></label>
+                    <input type="number" name="DIS" id="DIS" class="form-control" max="100" min="0"
+                           placeholder="Enter values">
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="inputAddress"><b>CRIM</b> <i>(per capita crime rate by town)</i></label>
+                    <input type="number" name="CRIM" id="CRIM" class="form-control" max="10" min="0"
+                           placeholder="Enter values">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="inputAddress"><b>NOX</b> <i>(nitric oxides concentration (parts per 10 million))</i></label>
+                    <input type="number" name="NOX" id="NOX" class="form-control" max="10" min="0"
+                           placeholder="Enter values">
+                </div>
+
+                <div class="col">
+                    <div class="col">
+                    <label for="inputAddress"><b>PTRATIO</b> <i>(pupil-teacher ratio by town)</i></label>
+                    <input type="number" name="PTRATIO" id="PTRATIO" class="form-control" max="10000" min="0"
+                           placeholder="Enter values">
+                </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="inputAddress"><b>TAX</b> <i>(full-value property-tax rate per 10,000usd)</i></label>
+                    <input type="number" name="TAX" id="TAX" class="form-control" max="100000" min="0"
+                           placeholder="Enter values">
+                </div>
+
+                <div class="col">
+                    <div class="col">
+                    <label for="inputAddress"><b>AGE</b> <i>(proportion of owner-occupied units built prior to 1940)</i></label>
+                    <input type="number" name="AGE" id="AGE" class="form-control" max="200" min="0"
+                           placeholder="Enter values">
+                </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="inputAddress"><b>B</b> <i>(1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town)</i></label>
+                    <input type="number" name="B" id="B" class="form-control" max="100000" min="0"
+                           placeholder="Enter values">
+                </div>
+
+
+            </div>
+
+
+            <br/>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">predict- House price is: </button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% if hasValues%}
+
+<hr/>
+
+<div>
+    <div class="alert alert-success" role="alert"><p> whether a passenger is survived or not  <b>{{prediction}}</b></p></div>
+
+
+</div>
+{% endif %}
+{% endblock %}
+

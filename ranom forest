@@ -1,0 +1,68 @@
+What is Random Forest?
+
+    Random forests are bagged decision tree models that split on a subset of features on each split. This is a huge mouthful, so let’s break this down by first looking at a single decision tree, then discussing bagged decision trees and finally introduce splitting on a random subset of features.
+    
+    
+Decision Tree
+    Essentially, a decision tree splits the data into smaller data groups based on the features of the data until we have a small enough set of data that only has data points under one label.
+    
+    
+Bagged Trees
+
+
+    Now take the decision tree concept and let’s apply the principles of bootstrapping to create bagged trees.
+    
+Bootstrapping is a sampling technique in which we randomly sample with replacement from the data set.
+
+Side note: When bootstrapping, we use only about 2/3 of the data. The approximately 1/3 of the data (“out-of-bag” data) is not used in the model and can conveniently be used as a test set.
+
+Bagging, or bootstrap aggregating, is where we create bagged trees by creating X number of decision trees that is trained on X bootstrapped training sets. 
+
+The final predicted value is the average value of all our X decision trees. One single decision tree has high variance (tends to overfit), so by bagging or combining many weak learners into strong learners, we are averaging away the variance. It’s a majority vote!    
+
+
+Random Forest
+
+Random forest improves on bagging because it decorrelates the trees with the introduction of splitting on a random subset of features. This means that at each split of the tree, the model considers only a small subset of features rather than all of the features of the model.
+
+That is, from the set of available features n, a subset of m features (m=square root of n) are selected at random. 
+
+This is important so that variance can be averaged away. Consider what would happen if the data set contains a few strong predictors. These predictors will consistently be chosen at the top level of the trees, so we will have very similar structured trees. In other words, the trees would be highly correlated.
+
+Why is Random Forest So Cool?
+
+Impressive in Versatility
+
+Whether you have a regression or classification task, random forest is an applicable model for your needs. It can handle binary features, categorical features, and numerical features. There is very little pre-processing that needs to be done. The data does not need to be rescaled or transformed.
+
+Parallelizable
+
+They are parallelizable, meaning that we can split the process to multiple machines to run. This results in faster computation time. Boosted models are sequential in contrast, and would take longer to compute.
+Side note: Specifically, in Python, to run this in multiple machines, provide the parameter “n_jobs = -1” The -1 is an indication to use all available machines. See scikit-learn documentation for further details.
+
+
+Great with High dimensionality
+
+Random forests is great with high dimensional data since we are working with subsets of data.
+
+Quick Prediction/Training Speed
+It is faster to train than decision trees because we are working only on a subset of features in this model, so we can easily work with hundreds of features. Prediction speed is significantly faster than training speed because we can save generated forests for future uses.
+
+
+Robust to Outliers and Non-linear Data
+
+Random forest handles outliers by essentially binning them. It is also indifferent to non-linear features.
+
+Handles Unbalanced Data
+It has methods for balancing error in class population unbalanced data sets. Random forest tries to minimize the overall error rate, so when we have an unbalance data set, the larger class will get a low error rate while the smaller class will have a larger error rate.
+
+Low Bias, Moderate Variance
+
+Each decision tree has a high variance, but low bias. But because we average all the trees in random forest, we are averaging the variance as well so that we have a low bias and moderate variance model.
+
+
+Does multicollinearity affect Random Forest?
+
+
+Random Forest uses bootstrap sampling and feature sampling, i.e row sampling and column sampling. Therefore Random Forest is not affected by multicollinearity that much since it is picking different set of features for different models and of course every model sees a different set of data points. But there is a chance of multicollinear features getting picked up together, and when that happens we will see some trace of it.
+Feature importance will definitely be affected by multicollinearity. Intuitively, if the features have same effect or there is a relation in between the features, it can be difficult to rank the relative importance of features. In other words, it’s not easy to say which one is even if we can access the underlying effect by measuring more than one variable, or if they are mutual symptoms of a third effect.
